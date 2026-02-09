@@ -233,6 +233,12 @@
         </div>
     </footer>
 
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightbox-close">&times;</button>
+        <img class="lightbox-img" id="lightbox-img" src="" alt="">
+    </div>
+
     <script>
         // Mobile menu
         const hamburger = document.getElementById('hamburger');
@@ -263,6 +269,34 @@
             });
         }, { threshold: 0.1 });
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Lightbox
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        document.querySelectorAll('.ba-card img').forEach(img => {
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        document.getElementById('lightbox-close').addEventListener('click', () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
     </script>
 
 </body>
